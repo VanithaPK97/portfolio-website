@@ -68,7 +68,7 @@ export function StackTower({ progress }: { progress: MotionValue<number> }) {
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[4.2, 3.2, 5.2]} fov={32} />
+      <PerspectiveCamera makeDefault position={[4.2, 3.2, 5.2]} fov={32} onUpdate={(c) => c.lookAt(0, 0, 0)} />
       <SceneLights />
       <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.4}>
         <group ref={tilt}>
