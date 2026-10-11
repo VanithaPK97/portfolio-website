@@ -17,10 +17,15 @@ const WorkflowPipeline = dynamic(
   () => import("../three/scenes/workflow-pipeline").then((m) => m.WorkflowPipeline),
   { ssr: false },
 );
+const MicrofrontendGrid = dynamic(
+  () => import("../three/scenes/microfrontend-grid").then((m) => m.MicrofrontendGrid),
+  { ssr: false },
+);
 
 function sceneFor(id: CaseStudy["id"]) {
   if (id === "cache") return <CachePath />;
   if (id === "workflow") return <WorkflowPipeline />;
+  if (id === "microfrontends") return <MicrofrontendGrid />;
   return undefined;
 }
 

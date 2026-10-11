@@ -18,11 +18,20 @@ test("card scenes mount on desktop", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "card scenes checked on desktop");
   await page.goto("/");
   await expect(page.locator("[data-scene-canvas]")).toBeAttached({ timeout: 6000 });
-  for (const id of ["case-cache", "case-workflow"]) {
+  for (const id of ["case-cache", "case-workflow", "case-microfrontends"]) {
     const slot = page.locator(`[data-three-slot="${id}"]`);
     await slot.scrollIntoViewIfNeeded();
     await expect(slot).toHaveAttribute("data-three-state", "3d", { timeout: 6000 });
   }
+});
+
+test("phone mounts no card scenes", async ({ page }) => {
+  test.skip(test.info().project.name !== "phone", "phone gating checked on phone");
+  await page.goto("/");
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(1500);
+  const threeCards = page.locator('[data-three-slot^="case-"][data-three-state="3d"]');
+  await expect(threeCards).toHaveCount(0);
 });
 
 test("scene follows theme toggle", async ({ page }) => {
