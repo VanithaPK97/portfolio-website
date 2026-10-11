@@ -25,7 +25,7 @@ export function Experience() {
 
   return (
     <section
-      id="experience"
+      id="career"
       aria-labelledby="experience-title"
       className="border-t border-line bg-surface"
     >

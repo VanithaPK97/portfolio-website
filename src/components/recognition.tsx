@@ -10,7 +10,7 @@ import { Reveal } from "./reveal";
 export function Recognition() {
   return (
     <section
-      id="recognition"
+      id="writing"
       aria-labelledby="recognition-title"
       className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28"
     >

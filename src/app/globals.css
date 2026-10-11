@@ -112,3 +112,47 @@ body {
   background-image: radial-gradient(color-mix(in oklab, var(--ink) 14%, transparent) 1px, transparent 1px);
   background-size: 18px 18px;
 }
+
+/* Two faint vertical lines framing the content column, like the reference. */
+.page-frame {
+  position: fixed;
+  inset-block: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(72rem, 100%);
+  border-inline: 1px solid color-mix(in oklab, var(--line) 70%, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 767px) {
+  .page-frame {
+    display: none;
+  }
+}
+
+/* Soft cobalt glow behind the hero headline. */
+.hero-glow {
+  position: absolute;
+  top: 18%;
+  left: -6%;
+  width: min(900px, 90%);
+  height: 600px;
+  max-height: 70%;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklab, var(--accent) 10%, transparent),
+    transparent 68%
+  );
+}
+
+:root[data-theme="dark"] .hero-glow,
+:root:not([data-theme="light"]) .hero-glow {
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklab, var(--accent) 16%, transparent),
+    transparent 68%
+  );
+}

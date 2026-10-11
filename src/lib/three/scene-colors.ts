@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 // 3D scenes read their colours from the page's CSS tokens so they follow
 // the theme toggle. parseSceneColors is pure (testable); useSceneColors
@@ -52,22 +52,43 @@ export function parseSceneColors(read: (name: string) => string, dark: boolean):
 
 function readFromDocument(): SceneColors {
   const style = getComputedStyle(document.documentElement);
-  const dark = document.documentElement.dataset.theme === "dark";
+  const dark =
+    document.documentElement.dataset.theme === "dark" ||
+    (document.documentElement.dataset.theme !== "light" &&
+      matchMedia("(prefers-color-scheme: dark)").matches);
   return parseSceneColors((name) => style.getPropertyValue(name), dark);
 }
 
+// Cached by the effective theme so getSnapshot returns a stable reference
+// (required by useSyncExternalStore) and recomputes only on theme change.
+let cache: SceneColors | null = null;
+let cacheKey = "";
+
+function getSnapshot(): SceneColors {
+  const key = `${document.documentElement.dataset.theme ?? ""}|${
+    typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: dark)").matches
+  }`;
+  if (!cache || key !== cacheKey) {
+    cacheKey = key;
+    cache = readFromDocument();
+  }
+  return cache;
+}
+
+function subscribe(onChange: () => void): () => void {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  const media = matchMedia("(prefers-color-scheme: dark)");
+  media.addEventListener("change", onChange);
+  return () => {
+    observer.disconnect();
+    media.removeEventListener("change", onChange);
+  };
+}
+
+const serverSnapshot = parseSceneColors(() => "", false);
+
+// Client hook: 3D scenes call this so their colours follow the theme toggle.
 export function useSceneColors(): SceneColors {
-  const [colors, setColors] = useState<SceneColors>(() => parseSceneColors(() => "", false));
-
-  useEffect(() => {
-    setColors(readFromDocument());
-    const observer = new MutationObserver(() => setColors(readFromDocument()));
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  return colors;
+  return useSyncExternalStore(subscribe, getSnapshot, () => serverSnapshot);
 }

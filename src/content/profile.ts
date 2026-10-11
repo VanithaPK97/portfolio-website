@@ -1,6 +1,11 @@
 // Every piece of copy on the site lives here, so updating the CV
 // never means touching a component.
 
+import type { BrandKey } from "./brands";
+
+// A line of copy mixing plain text with inline brand pills.
+export type Rich = (string | { brand: BrandKey })[];
+
 export const profile = {
   name: "Vanitha P K",
   role: "Senior Java Full Stack Developer",
@@ -16,11 +21,46 @@ export const profile = {
     "Full stack developer building scalable products with Java, Spring Boot, React and PostgreSQL. Skilled in REST APIs, frontend development, workflow automation and performance optimization.",
 };
 
+export const heroStory: Rich[] = [
+  [
+    "I’m Vanitha, a Senior Java Full Stack Developer in Bengaluru. Over seven years I’ve built for ",
+    { brand: "hsbc" },
+    " at ",
+    { brand: "infosys" },
+    ", for ",
+    { brand: "troweprice" },
+    " at ",
+    { brand: "fis" },
+    ", and on a public-sector platform at ",
+    { brand: "oracle" },
+    ". Today I build React microfrontends at ",
+    { brand: "opentext" },
+    ".",
+  ],
+  [
+    "My everyday stack is ",
+    { brand: "java" },
+    " ",
+    { brand: "springboot" },
+    " ",
+    { brand: "react" },
+    " ",
+    { brand: "postgresql" },
+    " ",
+    { brand: "redis" },
+    " and ",
+    { brand: "aws" },
+    ". I published a guide to Spring Boot and MongoDB on ",
+    { brand: "dzone" },
+    ".",
+  ],
+];
+
 export const nav = [
   { label: "Work", href: "#work" },
+  { label: "Career", href: "#career" },
   { label: "Stack", href: "#stack" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { label: "Writing", href: "#writing" },
 ];
 
 export const impact = [

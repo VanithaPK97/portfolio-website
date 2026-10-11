@@ -17,6 +17,7 @@ export default function Home() {
       >
         Skip to content
       </a>
+      <div aria-hidden className="page-frame" />
       <SiteHeader />
       <main>
         <Hero />
