@@ -1,21 +1,43 @@
 "use client";
 
+import { useRef } from "react";
 import { Moon, Sun } from "@phosphor-icons/react";
 
 // The inline script in layout.tsx sets data-theme before paint, so the
 // icon swap is pure CSS and never mismatches during hydration.
 export function ThemeToggle() {
-  function toggle() {
-    const root = document.documentElement;
-    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
+  const btn = useRef<HTMLButtonElement>(null);
+
+  function apply(next: "light" | "dark") {
+    document.documentElement.setAttribute("data-theme", next);
     try {
       localStorage.setItem("theme", next);
     } catch {}
   }
 
+  function toggle() {
+    const root = document.documentElement;
+    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+
+    const rect = btn.current?.getBoundingClientRect();
+    if (rect) {
+      root.style.setProperty("--vt-x", `${rect.left + rect.width / 2}px`);
+      root.style.setProperty("--vt-y", `${rect.top + rect.height / 2}px`);
+    }
+
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const start = (document as unknown as { startViewTransition?: (cb: () => void) => void })
+      .startViewTransition;
+    if (start && !reduced) {
+      start.call(document, () => apply(next));
+    } else {
+      apply(next);
+    }
+  }
+
   return (
     <button
+      ref={btn}
       type="button"
       onClick={toggle}
       aria-label="Switch colour theme"
