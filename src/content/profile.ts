@@ -71,10 +71,14 @@ export const impact = [
 ];
 
 export type CaseStudy = {
+  id: "cache" | "workflow" | "microfrontends";
+  brand: BrandKey;
   client: string;
   employer: string;
   period: string;
   title: string;
+  headline: string;
+  paperPhrase: { before?: string; mark: string; after: string };
   summary: string;
   contributions: string[];
   flow: { layer: string; tech: string }[];
@@ -83,10 +87,14 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
+    id: "cache",
+    brand: "troweprice",
     client: "T. Rowe Price",
     employer: "FIS Global",
     period: "2022 - 2024",
     title: "Workplace retirement platform",
+    headline: "40% faster API responses",
+    paperPhrase: { mark: "Full stack", after: " engineer" },
     summary:
       "Retirement applications for plan participants, built across a React front end and Spring Boot services.",
     contributions: [
@@ -104,10 +112,14 @@ export const caseStudies: CaseStudy[] = [
     outcome: { value: "40%", label: "faster API response time" },
   },
   {
+    id: "workflow",
+    brand: "hsbc",
     client: "HSBC",
     employer: "Infosys",
     period: "2019 - 2022",
     title: "International customer onboarding",
+    headline: "Onboarding, fraud review and approvals in one flow",
+    paperPhrase: { mark: "Workflow", after: " automation" },
     summary:
       "A back-office application that takes HSBC customers from application to approved account across countries.",
     contributions: [
@@ -125,10 +137,14 @@ export const caseStudies: CaseStudy[] = [
     outcome: { value: "End to end", label: "onboarding, fraud review and approvals in one flow" },
   },
   {
+    id: "microfrontends",
+    brand: "opentext",
     client: "OpenText",
     employer: "OpenText",
     period: "2025 - now",
     title: "Experience Central engagement platform",
+    headline: "Real-time behavioural alerts",
+    paperPhrase: { mark: "Microfrontend", after: " features" },
     summary:
       "A user engagement platform that raises real-time behavioural alerts, built as React microfrontends.",
     contributions: [

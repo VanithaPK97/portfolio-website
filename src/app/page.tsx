@@ -4,7 +4,7 @@ import { Hero } from "@/components/hero";
 import { IntroOverlay } from "@/components/intro-overlay";
 import { Impact } from "@/components/impact";
 import { Recognition } from "@/components/recognition";
-import { SelectedWork } from "@/components/selected-work";
+import { SelectedWork } from "@/components/work/selected-work";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Stack } from "@/components/stack";

@@ -113,6 +113,14 @@ body {
   background-size: 18px 18px;
 }
 
+/* Grid paper behind the work-card visuals and their 3D scenes. */
+.bg-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--line) 85%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--line) 85%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
 /* Two faint vertical lines framing the content column, like the reference. */
 .page-frame {
   position: fixed;

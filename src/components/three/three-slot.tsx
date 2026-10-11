@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  Children,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { useInView } from "motion/react";
 import { View } from "@react-three/drei";
 import { detectCapability, shouldRender3D, type SceneScope } from "@/lib/three/capability";
@@ -28,11 +36,12 @@ export function ThreeSlot({
   const ref = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<"fallback" | "3d">("fallback");
   const inView = useInView(ref, { margin: "200px" });
+  const hasScene = Children.count(children) > 0;
 
   useEffect(() => {
     const decide = () => {
       const ready = document.documentElement.dataset.three === "on";
-      setState(ready && shouldRender3D(detectCapability(), scope) ? "3d" : "fallback");
+      setState(ready && hasScene && shouldRender3D(detectCapability(), scope) ? "3d" : "fallback");
     };
     decide();
     const observer = new MutationObserver(decide);
@@ -43,7 +52,7 @@ export function ThreeSlot({
       observer.disconnect();
       window.removeEventListener("resize", onResize);
     };
-  }, [scope]);
+  }, [scope, hasScene]);
 
   return (
     <div ref={ref} data-three-slot={name} data-three-state={state} className={className}>
