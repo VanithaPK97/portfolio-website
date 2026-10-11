@@ -13,9 +13,14 @@ import { CaseDetail } from "./case-detail";
 const CachePath = dynamic(() => import("../three/scenes/cache-path").then((m) => m.CachePath), {
   ssr: false,
 });
+const WorkflowPipeline = dynamic(
+  () => import("../three/scenes/workflow-pipeline").then((m) => m.WorkflowPipeline),
+  { ssr: false },
+);
 
 function sceneFor(id: CaseStudy["id"]) {
   if (id === "cache") return <CachePath />;
+  if (id === "workflow") return <WorkflowPipeline />;
   return undefined;
 }
 

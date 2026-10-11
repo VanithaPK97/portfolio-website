@@ -18,9 +18,11 @@ test("card scenes mount on desktop", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "card scenes checked on desktop");
   await page.goto("/");
   await expect(page.locator("[data-scene-canvas]")).toBeAttached({ timeout: 6000 });
-  const slot = page.locator('[data-three-slot="case-cache"]');
-  await slot.scrollIntoViewIfNeeded();
-  await expect(slot).toHaveAttribute("data-three-state", "3d", { timeout: 6000 });
+  for (const id of ["case-cache", "case-workflow"]) {
+    const slot = page.locator(`[data-three-slot="${id}"]`);
+    await slot.scrollIntoViewIfNeeded();
+    await expect(slot).toHaveAttribute("data-three-state", "3d", { timeout: 6000 });
+  }
 });
 
 test("scene follows theme toggle", async ({ page }) => {
