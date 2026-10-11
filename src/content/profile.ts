@@ -243,13 +243,44 @@ export const career: Employer[] = [
   },
 ];
 
-export const stack = {
-  backend: ["Java", "Spring Boot", "Spring REST", "Spring Data JPA", "Camunda"],
-  frontend: ["React", "Redux", "TypeScript", "JavaScript", "HTML", "CSS", "Microfrontends"],
-  data: ["PostgreSQL", "MongoDB", "Redis"],
-  cloud: ["AWS", "Docker", "GitLab CI/CD", "Jenkins", "Git"],
-  quality: ["JUnit", "Mockito", "Mocha", "Chai", "Selenium", "SonarQube"],
-};
+export const tower = [
+  { tech: "React", layer: "Interface" },
+  { tech: "Spring Boot", layer: "API" },
+  { tech: "PostgreSQL", layer: "Data" },
+] as const;
+
+export type StackItem = { brand: BrandKey } | { text: string };
+
+const b = (brand: BrandKey): StackItem => ({ brand });
+const t = (text: string): StackItem => ({ text });
+
+export const stack: { title: string; desc: string; items: StackItem[] }[] = [
+  {
+    title: "Backend",
+    desc: "REST APIs, data models and workflow automation in Java and Spring.",
+    items: [b("java"), b("springboot"), t("Spring REST"), t("Spring Data JPA"), b("camunda")],
+  },
+  {
+    title: "Frontend",
+    desc: "Figma designs turned into reusable React components, microfrontends included.",
+    items: [b("react"), b("redux"), b("typescript"), t("JavaScript"), t("HTML"), t("CSS"), t("Microfrontends")],
+  },
+  {
+    title: "Data",
+    desc: "Relational and document stores, with caching where reads run hot.",
+    items: [b("postgresql"), b("mongodb"), b("redis")],
+  },
+  {
+    title: "Cloud and delivery",
+    desc: "AWS deployments with containerised builds and automated pipelines.",
+    items: [b("aws"), b("docker"), b("gitlab"), b("jenkins"), b("git")],
+  },
+  {
+    title: "Testing and quality",
+    desc: "Unit and browser tests, with static analysis in the pipeline.",
+    items: [b("junit"), t("Mockito"), b("mocha"), b("chai"), b("selenium"), t("SonarQube")],
+  },
+];
 
 export const awards = [
   { name: "Thumbs Up Award", org: "OpenText", reason: "Rapid onboarding and strong contributions" },

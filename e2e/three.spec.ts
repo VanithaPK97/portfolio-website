@@ -9,9 +9,17 @@ test("canvas mounts on desktop", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "3D canvas checked on desktop");
   await page.goto("/");
   await expect(page.locator("[data-scene-canvas]")).toBeAttached({ timeout: 6000 });
-  const probe = page.locator('[data-three-slot="probe"]');
-  await probe.scrollIntoViewIfNeeded();
-  await expect(probe).toHaveAttribute("data-three-state", "3d", { timeout: 6000 });
+  const tower = page.locator('[data-three-slot="tower"]');
+  await tower.scrollIntoViewIfNeeded();
+  await expect(tower).toHaveAttribute("data-three-state", "3d", { timeout: 6000 });
+});
+
+test("stack tower mounts", async ({ page }) => {
+  test.skip(test.info().project.name !== "desktop", "tower checked on desktop");
+  await page.goto("/");
+  const tower = page.locator('[data-three-slot="tower"]');
+  await tower.scrollIntoViewIfNeeded();
+  await expect(tower).toHaveAttribute("data-three-state", "3d", { timeout: 6000 });
 });
 
 test("card scenes mount on desktop without errors", async ({ page }) => {

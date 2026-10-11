@@ -1,6 +1,17 @@
-import { stack } from "@/content/profile";
+"use client";
+
+import { useRef } from "react";
+import dynamic from "next/dynamic";
+import { useScroll } from "motion/react";
+import { stack, type StackItem } from "@/content/profile";
+import { LogoPill } from "./logo-pill";
 import { Reveal } from "./reveal";
-import { Probe } from "./three/probe";
+import { ThreeSlot } from "./three/three-slot";
+import { TowerFallback } from "./tower-fallback";
+
+const StackTower = dynamic(() => import("./three/scenes/stack-tower").then((m) => m.StackTower), {
+  ssr: false,
+});
 
 const snippet = `@Service
 @RequiredArgsConstructor
@@ -38,24 +49,23 @@ function highlight(code: string) {
           </span>
         );
       })}
-      {line.length === 0 && " "}
+      {line.length === 0 && " "}
     </span>
   ));
 }
 
-function Chips({ items, tone = "default" }: { items: string[]; tone?: "default" | "dark" }) {
+function Pills({ items }: { items: StackItem[] }) {
   return (
     <ul className="flex flex-wrap gap-2">
-      {items.map((item) => (
-        <li
-          key={item}
-          className={
-            tone === "dark"
-              ? "rounded-full border border-white/12 bg-white/5 px-3 py-1 text-[13px] font-medium text-[#d7dce5]"
-              : "rounded-full border border-line bg-surface px-3 py-1 text-[13px] font-medium text-ink-2"
-          }
-        >
-          {item}
+      {items.map((item, i) => (
+        <li key={i}>
+          {"brand" in item ? (
+            <LogoPill brand={item.brand} size="sm" />
+          ) : (
+            <span className="inline-flex rounded-full border border-line bg-surface px-3 py-1 text-[13px] font-medium text-ink-2">
+              {item.text}
+            </span>
+          )}
         </li>
       ))}
     </ul>
@@ -63,8 +73,16 @@ function Chips({ items, tone = "default" }: { items: string[]; tone?: "default" 
 }
 
 export function Stack() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+
   return (
-    <section id="stack" aria-labelledby="stack-title" className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+    <section
+      id="stack"
+      ref={ref}
+      aria-labelledby="stack-title"
+      className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28"
+    >
       <Reveal className="max-w-2xl">
         <h2 id="stack-title" className="text-balance text-4xl font-bold tracking-[-0.03em] md:text-5xl">
           The stack
@@ -74,60 +92,46 @@ export function Stack() {
         </p>
       </Reveal>
 
-      <Probe />
+      <div className="mt-14 grid gap-8 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-5">
+          <ThreeSlot
+            name="tower"
+            scope="section"
+            fallback={<TowerFallback />}
+            className="bg-dots relative aspect-square rounded-3xl border border-line bg-surface-2 lg:sticky lg:top-28"
+          >
+            <StackTower progress={scrollYProgress} />
+          </ThreeSlot>
+        </div>
 
-      <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
-        <Reveal className="flex flex-col gap-6 overflow-hidden rounded-3xl bg-code-bg p-7 text-[#e9ecf1] md:col-span-4 md:row-span-2 md:p-9">
-          <div className="flex flex-col gap-4">
-            <h3 className="text-2xl font-bold tracking-tight">Backend</h3>
-            <p className="max-w-[46ch] leading-relaxed text-[#aab2c0]">
-              REST APIs, data models and workflow automation in Java and Spring.
-            </p>
-            <Chips items={stack.backend} tone="dark" />
-          </div>
-          <figure className="mt-auto">
-            <div className="overflow-x-auto rounded-2xl border border-white/8 bg-white/3 p-5">
-              <pre className="font-mono text-[12.5px] leading-[1.7]">
-                <code>{highlight(snippet)}</code>
-              </pre>
-            </div>
-            <figcaption className="mt-3 text-[13px] text-[#8e97a6]">
-              An illustrative sketch of read-through caching, the approach behind the 40% faster APIs.
-            </figcaption>
-          </figure>
-        </Reveal>
+        <div className="flex flex-col gap-5 lg:col-span-7">
+          {stack.map((group, i) => (
+            <Reveal
+              key={group.title}
+              delay={i * 0.05}
+              className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-7"
+            >
+              <div>
+                <h3 className="text-xl font-bold tracking-tight">{group.title}</h3>
+                <p className="mt-1 leading-relaxed text-ink-2">{group.desc}</p>
+              </div>
+              <Pills items={group.items} />
+            </Reveal>
+          ))}
 
-        <Reveal delay={0.08} className="flex flex-col gap-4 rounded-3xl bg-accent-soft p-7 md:col-span-2">
-          <h3 className="text-2xl font-bold tracking-tight">Frontend</h3>
-          <p className="leading-relaxed text-ink-2">
-            Figma designs turned into reusable React components, microfrontends included.
-          </p>
-          <Chips items={stack.frontend} />
-        </Reveal>
-
-        <Reveal delay={0.12} className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-7 md:col-span-2">
-          <h3 className="text-2xl font-bold tracking-tight">Data</h3>
-          <p className="leading-relaxed text-ink-2">
-            Relational and document stores, with caching where reads run hot.
-          </p>
-          <Chips items={stack.data} />
-        </Reveal>
-
-        <Reveal className="bg-dots flex flex-col gap-4 rounded-3xl border border-line bg-surface-2 p-7 md:col-span-3">
-          <h3 className="text-2xl font-bold tracking-tight">Cloud and delivery</h3>
-          <p className="leading-relaxed text-ink-2">
-            AWS deployments with containerised builds and automated pipelines.
-          </p>
-          <Chips items={stack.cloud} />
-        </Reveal>
-
-        <Reveal delay={0.08} className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-7 md:col-span-3">
-          <h3 className="text-2xl font-bold tracking-tight">Testing and quality</h3>
-          <p className="leading-relaxed text-ink-2">
-            Unit and browser tests, with static analysis in the pipeline.
-          </p>
-          <Chips items={stack.quality} />
-        </Reveal>
+          <Reveal className="overflow-hidden rounded-3xl bg-code-bg p-7 text-[#e9ecf1]">
+            <figure>
+              <div className="overflow-x-auto rounded-2xl border border-white/8 bg-white/3 p-5">
+                <pre className="font-mono text-[12.5px] leading-[1.7]">
+                  <code>{highlight(snippet)}</code>
+                </pre>
+              </div>
+              <figcaption className="mt-3 text-[13px] text-[#8e97a6]">
+                An illustrative sketch of read-through caching, the approach behind the 40% faster APIs.
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
