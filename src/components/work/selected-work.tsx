@@ -1,11 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { AnimatePresence } from "motion/react";
-import { caseStudies } from "@/content/profile";
+import { caseStudies, type CaseStudy } from "@/content/profile";
 import { Reveal } from "../reveal";
 import { CaseCard } from "./case-card";
 import { CaseDetail } from "./case-detail";
+
+// Scenes are lazy so three.js stays out of the initial bundle; each loads
+// only when its slot actually switches to 3D.
+const CachePath = dynamic(() => import("../three/scenes/cache-path").then((m) => m.CachePath), {
+  ssr: false,
+});
+
+function sceneFor(id: CaseStudy["id"]) {
+  if (id === "cache") return <CachePath />;
+  return undefined;
+}
 
 export function SelectedWork() {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -32,7 +44,12 @@ export function SelectedWork() {
 
       <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
         {caseStudies.map((study) => (
-          <CaseCard key={study.id} study={study} onOpen={() => setOpenId(study.id)} />
+          <CaseCard
+            key={study.id}
+            study={study}
+            scene={sceneFor(study.id)}
+            onOpen={() => setOpenId(study.id)}
+          />
         ))}
       </div>
 
