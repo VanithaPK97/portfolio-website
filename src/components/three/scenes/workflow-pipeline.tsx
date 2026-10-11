@@ -3,10 +3,10 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Line, PerspectiveCamera, RoundedBox } from "@react-three/drei";
-import { Color, type Material, type Mesh } from "three";
+import { type Material, type Mesh } from "three";
 import { pathPoint, tokenRoute, type Vec3 } from "@/lib/three/motion-math";
 import { useSceneColors } from "@/lib/three/scene-colors";
-import { SceneLights, Label, useClay } from "../clay";
+import { SceneLights, Label, accentTone, nodeTone, useClay } from "../clay";
 import { useSlotVisible } from "../three-slot";
 
 const APPLY: Vec3 = [-2.1, 0, 0];
@@ -27,9 +27,9 @@ export function WorkflowPipeline() {
   const visible = useSlotVisible();
   const tokens = useRef<(Mesh | null)[]>([]);
 
-  const nodeMat = useClay(colors.surface2);
-  const accountMat = useClay(new Color(colors.surface2).lerp(new Color(colors.accent), 0.25).getStyle());
-  const line = colors.line;
+  const nodeMat = useClay(nodeTone(colors));
+  const accountMat = useClay(accentTone(colors, 0.3));
+  const line = colors.muted;
 
   useFrame((state) => {
     if (!visible) return;

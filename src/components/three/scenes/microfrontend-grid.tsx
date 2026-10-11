@@ -4,9 +4,9 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { PerspectiveCamera, RoundedBox } from "@react-three/drei";
 import { easing } from "maath";
-import { Color, type Group, type Mesh, type MeshStandardMaterial } from "three";
+import { type Group, type Mesh, type MeshStandardMaterial } from "three";
 import { useSceneColors } from "@/lib/three/scene-colors";
-import { SceneLights } from "../clay";
+import { SceneLights, accentTone, nodeTone } from "../clay";
 import { useSlotVisible } from "../three-slot";
 
 type Tile = { pos: [number, number]; size: [number, number]; start: [number, number, number] };
@@ -32,9 +32,9 @@ export function MicrofrontendGrid() {
   const started = useRef(false);
   const ring = useRef<Mesh>(null);
 
-  const accent = new Color(colors.accent);
-  const tileColor = (i: number) =>
-    i === 0 ? new Color(colors.surface2).lerp(accent, 0.18).getStyle() : colors.surface2;
+  const tiles = nodeTone(colors);
+  const headerTile = accentTone(colors, 0.22);
+  const tileColor = (i: number) => (i === 0 ? headerTile : tiles);
 
   useFrame((_, dt) => {
     if (visible) started.current = true;

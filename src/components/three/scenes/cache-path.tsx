@@ -4,10 +4,9 @@ import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { PerspectiveCamera, RoundedBox, Cylinder } from "@react-three/drei";
 import type { Mesh } from "three";
-import { Color } from "three";
 import { cacheSchedule, pathPoint, type Vec3 } from "@/lib/three/motion-math";
 import { useSceneColors } from "@/lib/three/scene-colors";
-import { SceneLights, Label, useClay } from "../clay";
+import { SceneLights, Label, accentTone, nodeTone, useClay } from "../clay";
 import { useSlotVisible } from "../three-slot";
 
 const CLIENT: Vec3 = [-1.6, 0, 0];
@@ -24,9 +23,9 @@ export function CachePath() {
   const packet = useRef<Mesh>(null);
   const [kind, setKind] = useState<"miss" | "hit">("miss");
 
-  const clientMat = useClay(colors.surface2);
-  const redisMat = useClay(new Color(colors.surface2).lerp(new Color(colors.accent), 0.25).getStyle());
-  const pgMat = useClay(colors.surface2);
+  const clientMat = useClay(nodeTone(colors));
+  const redisMat = useClay(accentTone(colors, 0.3));
+  const pgMat = useClay(nodeTone(colors));
 
   useFrame((state) => {
     if (!visible || !packet.current) return;

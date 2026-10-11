@@ -14,8 +14,13 @@ test("canvas mounts on desktop", async ({ page }) => {
   await expect(probe).toHaveAttribute("data-three-state", "3d", { timeout: 6000 });
 });
 
-test("card scenes mount on desktop", async ({ page }) => {
+test("card scenes mount on desktop without errors", async ({ page }) => {
   test.skip(test.info().project.name !== "desktop", "card scenes checked on desktop");
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("console", (m) => {
+    if (m.type() === "error") errors.push(m.text());
+  });
   await page.goto("/");
   await expect(page.locator("[data-scene-canvas]")).toBeAttached({ timeout: 6000 });
   for (const id of ["case-cache", "case-workflow", "case-microfrontends"]) {
@@ -23,6 +28,9 @@ test("card scenes mount on desktop", async ({ page }) => {
     await slot.scrollIntoViewIfNeeded();
     await expect(slot).toHaveAttribute("data-three-state", "3d", { timeout: 6000 });
   }
+  await page.waitForTimeout(1500);
+  // A scene that fails to load its label font or geometry logs an error here.
+  expect(errors).toEqual([]);
 });
 
 test("phone mounts no card scenes", async ({ page }) => {
