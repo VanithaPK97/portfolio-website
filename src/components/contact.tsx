@@ -6,7 +6,9 @@ import { AnimatePresence, motion } from "motion/react";
 import { Check, Copy, EnvelopeSimple, LinkedinLogo } from "@phosphor-icons/react";
 import { profile } from "@/content/profile";
 import { launchPlane } from "@/lib/plane-launch";
+import { Magnetic } from "./magnetic";
 import { Reveal } from "./reveal";
+import { RevealHeading } from "./reveal-heading";
 import { ThreeSlot } from "./three/three-slot";
 
 const PaperPlane = dynamic(() => import("./three/scenes/paper-plane").then((m) => m.PaperPlane), {
@@ -49,25 +51,27 @@ export function Contact() {
           <PaperPlane />
         </ThreeSlot>
         <div className="relative max-w-3xl">
-          <h2 id="contact-title" className="text-balance text-4xl font-bold leading-[1.05] tracking-[-0.035em] md:text-6xl">
+          <RevealHeading
+            id="contact-title"
+            className="text-balance text-4xl font-bold leading-[1.05] tracking-[-0.035em] md:text-6xl"
+          >
             Hiring for a senior full stack role?
-          </h2>
+          </RevealHeading>
           <p className="mt-5 max-w-[48ch] text-lg leading-relaxed text-ink-2">
             I would like to hear about it. Email is the quickest way to reach me.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <motion.a
-              href={`mailto:${profile.email}`}
-              onClick={() => launchPlane()}
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full bg-accent px-6 py-3.5 text-[15px] font-semibold text-accent-ink shadow-soft transition-shadow hover:shadow-lift"
-            >
-              <EnvelopeSimple size={18} weight="bold" />
-              Email me
-            </motion.a>
+            <Magnetic>
+              <a
+                href={`mailto:${profile.email}`}
+                onClick={() => launchPlane()}
+                className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full bg-accent px-6 py-3.5 text-[15px] font-semibold text-accent-ink shadow-soft transition hover:shadow-lift"
+              >
+                <EnvelopeSimple size={18} weight="bold" />
+                Email me
+              </a>
+            </Magnetic>
 
             <button
               type="button"

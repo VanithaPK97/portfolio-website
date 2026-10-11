@@ -1,5 +1,6 @@
 import { ArrowUpRight, DownloadSimple, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
 import { profile, heroStory } from "@/content/profile";
+import { Magnetic } from "./magnetic";
 import { Portrait } from "./portrait";
 import { RichText } from "./rich-text";
 
@@ -11,7 +12,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative mx-auto grid min-h-[100dvh] max-w-6xl items-center gap-12 px-5 pb-16 pt-28 md:grid-cols-12 md:gap-8 md:px-8 md:pb-24 md:pt-24"
+      className="relative mx-auto grid min-h-dvh max-w-6xl items-center gap-12 px-5 pb-16 pt-28 md:grid-cols-12 md:gap-8 md:px-8 md:pb-24 md:pt-24"
     >
       <div aria-hidden className="hero-glow" />
 
@@ -37,21 +38,25 @@ export function Hero() {
         </div>
 
         <div className="mt-9 flex flex-wrap items-center gap-x-3 gap-y-4">
-          <a
-            href={`mailto:${profile.email}`}
-            className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full bg-accent px-6 py-3.5 text-[15px] font-semibold text-accent-ink shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift active:translate-y-0"
-          >
-            <EnvelopeSimple size={18} weight="bold" />
-            Email me
-          </a>
-          <a
-            href={profile.resume}
-            download
-            className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-surface px-6 py-3.5 text-[15px] font-semibold text-ink transition hover:-translate-y-0.5 hover:border-ink/30 active:translate-y-0"
-          >
-            <DownloadSimple size={18} weight="bold" />
-            Download CV
-          </a>
+          <Magnetic>
+            <a
+              href={`mailto:${profile.email}`}
+              className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full bg-accent px-6 py-3.5 text-[15px] font-semibold text-accent-ink shadow-soft transition hover:shadow-lift"
+            >
+              <EnvelopeSimple size={18} weight="bold" />
+              Email me
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href={profile.resume}
+              download
+              className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full border border-line bg-surface px-6 py-3.5 text-[15px] font-semibold text-ink transition hover:border-ink/30"
+            >
+              <DownloadSimple size={18} weight="bold" />
+              Download CV
+            </a>
+          </Magnetic>
           <a
             href={profile.linkedin}
             target="_blank"

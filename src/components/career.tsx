@@ -5,6 +5,7 @@ import { motion, useScroll } from "motion/react";
 import { career } from "@/content/profile";
 import { LogoPill } from "./logo-pill";
 import { Reveal } from "./reveal";
+import { RevealHeading } from "./reveal-heading";
 
 export function Career() {
   const ref = useRef<HTMLElement>(null);
@@ -20,9 +21,9 @@ export function Career() {
         />
 
         <Reveal className="max-w-2xl">
-          <h2 id="career-title" className="text-balance text-4xl font-bold tracking-[-0.03em] md:text-5xl">
+          <RevealHeading id="career-title" className="text-balance text-4xl font-bold tracking-[-0.03em] md:text-5xl">
             Career
-          </h2>
+          </RevealHeading>
           <p className="mt-4 text-lg leading-relaxed text-muted">
             Banking, retirement, public sector and customer engagement, across four employers.
           </p>
@@ -44,7 +45,7 @@ export function Career() {
                     <li key={role.title} className="relative">
                       <span
                         aria-hidden
-                        className="absolute -left-[1.4rem] top-1.5 size-2 rounded-full bg-accent ring-4 ring-surface"
+                        className="absolute left-[-1.4rem] top-1.5 size-2 rounded-full bg-accent ring-4 ring-surface"
                       />
                       <p className="text-sm font-semibold">{role.title}</p>
                       <p className="font-mono text-[11px] text-muted">{role.period}</p>

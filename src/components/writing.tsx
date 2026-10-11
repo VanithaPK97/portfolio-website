@@ -6,6 +6,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { awards, certifications, education, publication } from "@/content/profile";
 import { Reveal } from "./reveal";
+import { RevealHeading } from "./reveal-heading";
 
 export function Writing() {
   return (
@@ -15,9 +16,9 @@ export function Writing() {
       className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28"
     >
       <Reveal className="max-w-2xl">
-        <h2 id="writing-title" className="text-balance text-4xl font-bold tracking-[-0.03em] md:text-5xl">
+        <RevealHeading id="writing-title" className="text-balance text-4xl font-bold tracking-[-0.03em] md:text-5xl">
           Writing and recognition
-        </h2>
+        </RevealHeading>
       </Reveal>
 
       <div className="mt-14 grid gap-5 lg:grid-cols-12">

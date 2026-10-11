@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Stack } from "@/components/stack";
 import { ThreeRoot } from "@/components/three/three-root";
+import { FloatingDock } from "@/components/floating-dock";
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
         <Contact />
       </main>
       <SiteFooter />
+      <FloatingDock />
       <ThreeRoot />
     </>
   );

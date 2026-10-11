@@ -11,6 +11,7 @@ import {
 } from "motion/react";
 import { DownloadSimple, List, X } from "@phosphor-icons/react";
 import { nav, profile } from "@/content/profile";
+import { headerHidden } from "@/lib/motion/header";
 import { ThemeToggle } from "./theme-toggle";
 import { easeOut } from "./reveal";
 
@@ -18,10 +19,14 @@ export function SiteHeader() {
   const { scrollY, scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.3 });
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const active = useActiveSection();
 
-  useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 12));
+  useMotionValueEvent(scrollY, "change", (y) => {
+    setScrolled(y > 12);
+    setHidden(headerHidden(scrollY.getPrevious() ?? 0, y, open));
+  });
 
   useEffect(() => {
     if (!open) return;
@@ -31,7 +36,11 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
+    <motion.header
+      animate={{ y: hidden ? "-100%" : "0%" }}
+      transition={{ duration: 0.35, ease: easeOut }}
+      className="fixed inset-x-0 top-0 z-40"
+    >
       <div
         className={`border-b transition-[background-color,border-color,backdrop-filter] duration-300 ${
           scrolled || open
@@ -148,7 +157,7 @@ export function SiteHeader() {
         style={{ scaleX: progress }}
         className="h-0.5 origin-left bg-accent"
       />
-    </header>
+    </motion.header>
   );
 }
 

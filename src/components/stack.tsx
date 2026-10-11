@@ -2,10 +2,12 @@
 
 import { useRef } from "react";
 import dynamic from "next/dynamic";
-import { useScroll } from "motion/react";
+import { motion, useScroll, type Variants } from "motion/react";
 import { stack, type StackItem } from "@/content/profile";
 import { LogoPill } from "./logo-pill";
 import { Reveal } from "./reveal";
+import { RevealHeading } from "./reveal-heading";
+import { SpotlightCard } from "./spotlight-card";
 import { ThreeSlot } from "./three/three-slot";
 import { TowerFallback } from "./tower-fallback";
 
@@ -30,11 +32,17 @@ public class AccountSummaryService {
 
 const KEYWORDS = new Set(["public", "private", "final", "class", "return", "new", "true", "false"]);
 
+const lineVariant: Variants = {
+  hidden: { opacity: 0, x: -6 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } },
+};
+
 // Tiny Java highlighter: enough for one static snippet, no runtime library.
+// Each line is a motion span so the block types itself in on scroll.
 function highlight(code: string) {
   const pattern = /(@\w+)|("[^"]*")|(\b[A-Za-z_]\w*\b)|(\s+)|([^\sA-Za-z_@"]+)/g;
   return code.split("\n").map((line, li) => (
-    <span key={li} className="block">
+    <motion.span key={li} variants={lineVariant} className="block">
       {Array.from(line.matchAll(pattern)).map((m, ti) => {
         const [text, annotation, string, word] = m;
         let cls = "text-[#7f8898]";
@@ -50,7 +58,7 @@ function highlight(code: string) {
         );
       })}
       {line.length === 0 && " "}
-    </span>
+    </motion.span>
   ));
 }
 
@@ -84,9 +92,9 @@ export function Stack() {
       className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28"
     >
       <Reveal className="max-w-2xl">
-        <h2 id="stack-title" className="text-balance text-4xl font-bold tracking-[-0.03em] md:text-5xl">
+        <RevealHeading id="stack-title" className="text-balance text-4xl font-bold tracking-[-0.03em] md:text-5xl">
           The stack
-        </h2>
+        </RevealHeading>
         <p className="mt-4 text-lg leading-relaxed text-muted">
           Java on the server, React in the browser, and the tooling that gets both to production.
         </p>
@@ -106,16 +114,14 @@ export function Stack() {
 
         <div className="flex flex-col gap-5 lg:col-span-7">
           {stack.map((group, i) => (
-            <Reveal
-              key={group.title}
-              delay={i * 0.05}
-              className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-7"
-            >
-              <div>
-                <h3 className="text-xl font-bold tracking-tight">{group.title}</h3>
-                <p className="mt-1 leading-relaxed text-ink-2">{group.desc}</p>
-              </div>
-              <Pills items={group.items} />
+            <Reveal key={group.title} delay={i * 0.05}>
+              <SpotlightCard className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-7">
+                <div>
+                  <h3 className="text-xl font-bold tracking-tight">{group.title}</h3>
+                  <p className="mt-1 leading-relaxed text-ink-2">{group.desc}</p>
+                </div>
+                <Pills items={group.items} />
+              </SpotlightCard>
             </Reveal>
           ))}
 
@@ -123,7 +129,14 @@ export function Stack() {
             <figure>
               <div className="overflow-x-auto rounded-2xl border border-white/8 bg-white/3 p-5">
                 <pre className="font-mono text-[12.5px] leading-[1.7]">
-                  <code>{highlight(snippet)}</code>
+                  <motion.code
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ staggerChildren: 0.06 }}
+                  >
+                    {highlight(snippet)}
+                  </motion.code>
                 </pre>
               </div>
               <figcaption className="mt-3 text-[13px] text-[#8e97a6]">

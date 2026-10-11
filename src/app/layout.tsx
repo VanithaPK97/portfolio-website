@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { JetBrains_Mono } from "next/font/google";
 import { MotionProvider } from "@/components/motion-provider";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -81,8 +82,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
-      <body className="min-h-[100dvh] font-sans">
-        <MotionProvider>{children}</MotionProvider>
+      <body className="min-h-dvh font-sans">
+        <MotionProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </MotionProvider>
       </body>
     </html>
   );
