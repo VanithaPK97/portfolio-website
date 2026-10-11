@@ -30,6 +30,14 @@ test("career lists every employer", async ({ page }) => {
   }
 });
 
+test("writing section has the article and certifications", async ({ page }) => {
+  const writing = page.locator("#writing");
+  await expect(
+    writing.locator('a[href="https://dzone.com/articles/spring-boot-mongodb-integration"]'),
+  ).toBeAttached();
+  await expect(writing).toContainText("AWS Certified Cloud Practitioner");
+});
+
 test("phone has no horizontal scroll", async ({ page }) => {
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - window.innerWidth,

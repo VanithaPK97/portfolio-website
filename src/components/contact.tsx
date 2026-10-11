@@ -1,10 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, Copy, EnvelopeSimple, LinkedinLogo } from "@phosphor-icons/react";
 import { profile } from "@/content/profile";
+import { launchPlane } from "@/lib/plane-launch";
 import { Reveal } from "./reveal";
+import { ThreeSlot } from "./three/three-slot";
+
+const PaperPlane = dynamic(() => import("./three/scenes/paper-plane").then((m) => m.PaperPlane), {
+  ssr: false,
+});
 
 type CopyState = "idle" | "copied" | "failed";
 
@@ -33,6 +40,14 @@ export function Contact() {
           aria-hidden
           className="bg-dots absolute inset-0 mask-[radial-gradient(ellipse_at_top_right,black,transparent_60%)]"
         />
+        <ThreeSlot
+          name="plane"
+          scope="contact"
+          fallback={null}
+          className="pointer-events-none absolute right-6 top-6 hidden h-56 w-72 md:block"
+        >
+          <PaperPlane />
+        </ThreeSlot>
         <div className="relative max-w-3xl">
           <h2 id="contact-title" className="text-balance text-4xl font-bold leading-[1.05] tracking-[-0.035em] md:text-6xl">
             Hiring for a senior full stack role?
@@ -44,6 +59,7 @@ export function Contact() {
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <motion.a
               href={`mailto:${profile.email}`}
+              onClick={() => launchPlane()}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
