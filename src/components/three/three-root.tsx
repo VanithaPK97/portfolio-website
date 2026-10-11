@@ -1,28 +1,36 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import { detectCapability, shouldRender3D } from "@/lib/three/capability";
 
-// Loaded only after first paint, and only when the device can handle 3D, so
-// the hero text stays the largest contentful paint.
-const SceneCanvas = dynamic(() => import("./scene-canvas"), { ssr: false });
-
+// The 3D canvas is fetched with a bare dynamic import inside an idle
+// callback, so its chunk stays out of the initial HTML and loads only
+// after first paint, and only when the device can handle 3D.
 export function ThreeRoot() {
-  const [enabled, setEnabled] = useState(false);
+  const [Canvas, setCanvas] = useState<ComponentType | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
     const run = () => {
-      if (shouldRender3D(detectCapability(), "section")) setEnabled(true);
+      if (!shouldRender3D(detectCapability(), "section")) return;
+      import("./scene-canvas").then((m) => {
+        if (!cancelled) setCanvas(() => m.default);
+      });
     };
     const ric = window.requestIdleCallback;
     if (ric) {
       const id = ric(run);
-      return () => window.cancelIdleCallback?.(id);
+      return () => {
+        cancelled = true;
+        window.cancelIdleCallback?.(id);
+      };
     }
     const t = setTimeout(run, 200);
-    return () => clearTimeout(t);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
   }, []);
 
-  return enabled ? <SceneCanvas /> : null;
+  return Canvas ? <Canvas /> : null;
 }
