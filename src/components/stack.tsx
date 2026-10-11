@@ -1,5 +1,6 @@
 import { stack } from "@/content/profile";
 import { Reveal } from "./reveal";
+import { Probe } from "./three/probe";
 
 const snippet = `@Service
 @RequiredArgsConstructor
@@ -72,6 +73,8 @@ export function Stack() {
           Java on the server, React in the browser, and the tooling that gets both to production.
         </p>
       </Reveal>
+
+      <Probe />
 
       <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
         <Reveal className="flex flex-col gap-6 overflow-hidden rounded-3xl bg-code-bg p-7 text-[#e9ecf1] md:col-span-4 md:row-span-2 md:p-9">

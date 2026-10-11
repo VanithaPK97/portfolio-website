@@ -8,6 +8,7 @@ import { SelectedWork } from "@/components/selected-work";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Stack } from "@/components/stack";
+import { ThreeRoot } from "@/components/three/three-root";
 
 export default function Home() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
         <Contact />
       </main>
       <SiteFooter />
+      <ThreeRoot />
     </>
   );
 }
