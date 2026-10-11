@@ -1,6 +1,7 @@
 import { Contact } from "@/components/contact";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
+import { IntroOverlay } from "@/components/intro-overlay";
 import { Impact } from "@/components/impact";
 import { Recognition } from "@/components/recognition";
 import { SelectedWork } from "@/components/selected-work";
@@ -17,6 +18,7 @@ export default function Home() {
       >
         Skip to content
       </a>
+      <IntroOverlay />
       <div aria-hidden className="page-frame" />
       <SiteHeader />
       <main>

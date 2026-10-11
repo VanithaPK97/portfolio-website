@@ -131,6 +131,36 @@ body {
   }
 }
 
+/* Typed intro overlay: hidden unless the pre-paint script opted in. */
+.intro-overlay {
+  display: none;
+}
+:root[data-intro="play"] .intro-overlay {
+  display: flex;
+}
+/* Hide the real hero headline only while the intro plays, so the docked
+   text replaces it with no double image and no layout shift. */
+:root[data-intro="play"] [data-hero-headline] {
+  opacity: 0;
+}
+
+.intro-caret {
+  display: inline-block;
+  width: 2px;
+  margin-left: 0.08em;
+  background: var(--accent);
+  animation: intro-blink 1s step-end infinite;
+}
+@keyframes intro-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Soft cobalt glow behind the hero headline. */
 .hero-glow {
   position: absolute;
