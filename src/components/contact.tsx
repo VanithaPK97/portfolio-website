@@ -1,19 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, Copy, EnvelopeSimple, LinkedinLogo } from "@phosphor-icons/react";
 import { profile } from "@/content/profile";
-import { launchPlane } from "@/lib/plane-launch";
 import { Magnetic } from "./magnetic";
 import { Reveal } from "./reveal";
 import { RevealHeading } from "./reveal-heading";
-import { ThreeSlot } from "./three/three-slot";
-
-const PaperPlane = dynamic(() => import("./three/scenes/paper-plane").then((m) => m.PaperPlane), {
-  ssr: false,
-});
 
 type CopyState = "idle" | "copied" | "failed";
 
@@ -42,14 +35,6 @@ export function Contact() {
           aria-hidden
           className="bg-dots absolute inset-0 mask-[radial-gradient(ellipse_at_top_right,black,transparent_60%)]"
         />
-        <ThreeSlot
-          name="plane"
-          scope="contact"
-          fallback={null}
-          className="pointer-events-none absolute right-6 top-6 hidden h-56 w-72 md:block"
-        >
-          <PaperPlane />
-        </ThreeSlot>
         <div className="relative max-w-3xl">
           <RevealHeading
             id="contact-title"
@@ -65,7 +50,6 @@ export function Contact() {
             <Magnetic>
               <a
                 href={`mailto:${profile.email}`}
-                onClick={() => launchPlane()}
                 className="inline-flex items-center gap-2.5 whitespace-nowrap rounded-full bg-accent px-6 py-3.5 text-[15px] font-semibold text-accent-ink shadow-soft transition hover:shadow-lift"
               >
                 <EnvelopeSimple size={18} weight="bold" />

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { DownloadSimple, EnvelopeSimple } from "@phosphor-icons/react";
 import { profile } from "@/content/profile";
-import { launchPlane } from "@/lib/plane-launch";
 import { useIntroDone } from "./intro-overlay";
 import { Magnetic } from "./magnetic";
 
@@ -49,7 +48,6 @@ export function FloatingDock() {
           <Magnetic>
             <a
               href={`mailto:${profile.email}`}
-              onClick={() => launchPlane()}
               className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink"
             >
               <EnvelopeSimple size={16} weight="bold" />

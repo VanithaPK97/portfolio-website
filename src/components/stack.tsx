@@ -1,19 +1,12 @@
 "use client";
 
-import { useRef } from "react";
-import dynamic from "next/dynamic";
-import { motion, useScroll, type Variants } from "motion/react";
+import Image from "next/image";
+import { motion, type Variants } from "motion/react";
 import { stack, type StackItem } from "@/content/profile";
 import { LogoPill } from "./logo-pill";
 import { Reveal } from "./reveal";
 import { RevealHeading } from "./reveal-heading";
 import { SpotlightCard } from "./spotlight-card";
-import { ThreeSlot } from "./three/three-slot";
-import { TowerFallback } from "./tower-fallback";
-
-const StackTower = dynamic(() => import("./three/scenes/stack-tower").then((m) => m.StackTower), {
-  ssr: false,
-});
 
 const snippet = `@Service
 @RequiredArgsConstructor
@@ -81,13 +74,9 @@ function Pills({ items }: { items: StackItem[] }) {
 }
 
 export function Stack() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-
   return (
     <section
       id="stack"
-      ref={ref}
       aria-labelledby="stack-title"
       className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28"
     >
@@ -102,14 +91,15 @@ export function Stack() {
 
       <div className="mt-14 grid gap-8 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
-          <ThreeSlot
-            name="tower"
-            scope="section"
-            fallback={<TowerFallback />}
-            className="bg-dots relative aspect-square rounded-3xl border border-line bg-surface-2 lg:sticky lg:top-28"
-          >
-            <StackTower progress={scrollYProgress} />
-          </ThreeSlot>
+          <div className="relative aspect-square overflow-hidden rounded-3xl border border-line bg-surface-2 lg:sticky lg:top-28">
+            <Image
+              src="/covers/stack.jpg"
+              alt="A continuous integration pipeline on a developer's screen"
+              fill
+              sizes="(min-width: 1024px) 40vw, 90vw"
+              className="object-cover"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col gap-5 lg:col-span-7">

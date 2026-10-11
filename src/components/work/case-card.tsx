@@ -1,24 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowRight } from "@phosphor-icons/react";
 import type { CaseStudy } from "@/content/profile";
 import { LogoPill } from "../logo-pill";
-import { ThreeSlot } from "../three/three-slot";
-import { Flow } from "./flow";
 import { Marker } from "./marker";
 
-// One work card: a grid-paper visual area (its 3D scene arrives in Tasks
-// 8-10, with the compact flow as the fallback), then the outcome and a way in.
-export function CaseCard({
-  study,
-  scene,
-  onOpen,
-}: {
-  study: CaseStudy;
-  scene?: React.ReactNode;
-  onOpen: () => void;
-}) {
+// One work card: a cover image for the system, then the outcome and a way in.
+export function CaseCard({ study, onOpen }: { study: CaseStudy; onOpen: () => void }) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 28 }}
@@ -27,16 +17,19 @@ export function CaseCard({
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col gap-4 rounded-3xl border border-line bg-surface p-4 shadow-soft"
     >
-      <div className="bg-grid relative aspect-[4/3] overflow-hidden rounded-2xl border border-line bg-surface-2">
-        <ThreeSlot
-          name={`case-${study.id}`}
-          scope="card"
-          fallback={<Flow steps={study.flow} variant="compact" />}
-          className="absolute inset-0"
-        >
-          {scene}
-        </ThreeSlot>
-        <span className="pointer-events-none absolute left-4 top-4 text-sm font-semibold tracking-tight">
+      <div className="relative aspect-4/3 overflow-hidden rounded-2xl border border-line bg-surface-2">
+        <Image
+          src={`/covers/${study.id}.jpg`}
+          alt={`${study.client} ${study.title}`}
+          fill
+          sizes="(min-width: 768px) 30vw, 90vw"
+          className="object-cover"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-linear-to-t from-black/55 via-black/10 to-transparent"
+        />
+        <span className="absolute left-4 top-4 text-sm font-semibold tracking-tight text-white drop-shadow">
           {study.paperPhrase.before}
           <Marker>{study.paperPhrase.mark}</Marker>
           {study.paperPhrase.after}
