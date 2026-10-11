@@ -9,10 +9,10 @@ import {
   useTransform,
 } from "motion/react";
 import { MapPin } from "@phosphor-icons/react";
-import { profile, experience } from "@/content/profile";
+import { profile, career } from "@/content/profile";
 import { easeOut } from "./reveal";
 
-const current = experience[0];
+const current = { title: career[0].roles[0].title, company: career[0].company };
 
 export function Portrait() {
   const reduce = useReducedMotion();

@@ -163,6 +163,86 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
+export type Employer = {
+  brand: BrandKey;
+  company: string;
+  period: string;
+  roles: { title: string; period: string }[];
+  projects: { name: string; context: string; outcome?: string }[];
+};
+
+export const career: Employer[] = [
+  {
+    brand: "opentext",
+    company: "OpenText",
+    period: "Oct 2025 - Present",
+    roles: [{ title: "Senior Software Engineer", period: "Oct 2025 - Present" }],
+    projects: [
+      {
+        name: "Experience Central",
+        context:
+          "React microfrontend features and reusable components from Figma designs, with Java and Spring Boot REST APIs for the frontend and analytics workflows.",
+        outcome: "Real-time behavioural alerts on a live engagement platform",
+      },
+      {
+        name: "AI hackathon prototype",
+        context: "A weather-alert prototype built with Python and LLaMA during an internal AI hackathon.",
+      },
+    ],
+  },
+  {
+    brand: "oracle",
+    company: "Oracle Tech Hub",
+    period: "Aug 2024 - Oct 2025",
+    roles: [{ title: "Senior Applications Engineer", period: "Aug 2024 - Oct 2025" }],
+    projects: [
+      {
+        name: "Oracle Permit and License Application (OPAL)",
+        context:
+          "VBCS applications and pages built from Figma for public-sector workflows, with optimized Oracle JET code and Mocha, Chai and Selenium tests.",
+        outcome: "Java data models updated across 100+ tables",
+      },
+    ],
+  },
+  {
+    brand: "fis",
+    company: "FIS Global",
+    period: "Feb 2022 - Jul 2024",
+    roles: [{ title: "Software Engineer", period: "Feb 2022 - Jul 2024" }],
+    projects: [
+      {
+        name: "T. Rowe Price workplace retirement",
+        context:
+          "Retirement applications across React, Redux, Java, Spring Boot and PostgreSQL, deployed on AWS with GitLab CI/CD and Docker.",
+        outcome: "40% faster API responses through Redis caching and JPA tuning",
+      },
+    ],
+  },
+  {
+    brand: "infosys",
+    company: "Infosys",
+    period: "Dec 2018 - Feb 2022",
+    roles: [
+      { title: "Senior System Engineer", period: "Aug 2019 - Feb 2022" },
+      { title: "Intern", period: "Dec 2018 - Apr 2019" },
+    ],
+    projects: [
+      {
+        name: "HSBC customer onboarding",
+        context:
+          "An international onboarding application with Camunda workflow automation, PostgreSQL audit history and React screens for fraud review and approvals.",
+        outcome: "Onboarding, fraud review and approvals in one flow",
+      },
+      {
+        name: "Test-case generation framework",
+        context:
+          "A framework built with Node.js, Express, Mocha, Chai and MongoDB, with an Angular results interface.",
+        outcome: "Adopted by the Infosys training team for test evaluation",
+      },
+    ],
+  },
+];
+
 export const stack = {
   backend: ["Java", "Spring Boot", "Spring REST", "Spring Data JPA", "Camunda"],
   frontend: ["React", "Redux", "TypeScript", "JavaScript", "HTML", "CSS", "Microfrontends"],
@@ -170,80 +250,6 @@ export const stack = {
   cloud: ["AWS", "Docker", "GitLab CI/CD", "Jenkins", "Git"],
   quality: ["JUnit", "Mockito", "Mocha", "Chai", "Selenium", "SonarQube"],
 };
-
-export type Role = {
-  id: string;
-  title: string;
-  company: string;
-  navLabel?: string;
-  period: string;
-  context: string;
-  points: string[];
-};
-
-export const experience: Role[] = [
-  {
-    id: "opentext",
-    title: "Senior Software Engineer",
-    company: "OpenText",
-    period: "Oct 2025 - Present",
-    context: "Experience Central, Digital Engineering",
-    points: [
-      "Develop React microfrontend features and resolve production issues for a user engagement platform with real-time behavioural alerts.",
-      "Build reusable React components from Figma designs and Java/Spring Boot REST APIs for frontend and analytics workflows.",
-      "Keep the application stable through framework upgrades and dependency migrations.",
-      "Built a Python and LLaMA weather-alert prototype during an internal AI hackathon.",
-    ],
-  },
-  {
-    id: "oracle",
-    title: "Senior Applications Engineer",
-    company: "Oracle Tech Hub",
-    period: "Aug 2024 - Oct 2025",
-    context: "Oracle Permit and License Application (OPAL)",
-    points: [
-      "Updated Java data models across 100+ tables, including View Objects and Entity Objects.",
-      "Built VBCS applications and pages from Figma designs for public-sector workflows.",
-      "Optimized Oracle JET code and wrote Mocha/Chai and Selenium tests.",
-    ],
-  },
-  {
-    id: "fis",
-    title: "Software Engineer",
-    company: "FIS Global",
-    period: "Feb 2022 - Jul 2024",
-    context: "T. Rowe Price, Workplace Retirement",
-    points: [
-      "Built retirement applications using React, Redux, Java, Spring Boot and PostgreSQL.",
-      "Reduced API response time by 40% through Redis caching and JPA query optimization.",
-      "Deployed on AWS S3, Lambda and EC2; automated CI/CD with GitLab and Docker.",
-    ],
-  },
-  {
-    id: "infosys",
-    title: "Senior System Engineer",
-    company: "Infosys",
-    period: "Aug 2019 - Feb 2022",
-    context: "HSBC, Banking",
-    points: [
-      "Built an international customer onboarding application for HSBC back-office teams.",
-      "Automated onboarding workflows with Camunda and Spring REST APIs.",
-      "Deployed Camunda workflows to AWS EC2 for testing; used Git, Jenkins, SonarQube and Jira for Agile delivery.",
-    ],
-  },
-  {
-    id: "infosys-intern",
-    title: "Intern",
-    company: "Infosys",
-    navLabel: "Infosys internship",
-    period: "Dec 2018 - Apr 2019",
-    context: "Training platform",
-    points: [
-      "Built a test-case generation framework with Node.js, Express, Mocha, Chai and MongoDB, with an Angular results interface.",
-      "The Infosys training team later adopted the framework for test evaluation.",
-    ],
-  },
-];
 
 export const awards = [
   { name: "Thumbs Up Award", org: "OpenText", reason: "Rapid onboarding and strong contributions" },

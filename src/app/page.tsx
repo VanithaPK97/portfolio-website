@@ -1,5 +1,5 @@
 import { Contact } from "@/components/contact";
-import { Experience } from "@/components/experience";
+import { Career } from "@/components/career";
 import { Hero } from "@/components/hero";
 import { IntroOverlay } from "@/components/intro-overlay";
 import { Impact } from "@/components/impact";
@@ -27,7 +27,7 @@ export default function Home() {
         <Impact />
         <SelectedWork />
         <Stack />
-        <Experience />
+        <Career />
         <Recognition />
         <Contact />
       </main>

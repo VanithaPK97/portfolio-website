@@ -23,6 +23,13 @@ test("nav lists the new sections", async ({ page }) => {
   await expect(links).toHaveText(["Work", "Career", "Stack", "Writing"]);
 });
 
+test("career lists every employer", async ({ page }) => {
+  const career = page.locator("#career");
+  for (const text of ["OpenText", "Oracle Tech Hub", "FIS Global", "Infosys", "Intern", "100+ tables"]) {
+    await expect(career).toContainText(text);
+  }
+});
+
 test("phone has no horizontal scroll", async ({ page }) => {
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - window.innerWidth,
