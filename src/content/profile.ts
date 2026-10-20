@@ -11,12 +11,14 @@ export const profile = {
   role: "Senior Java Full Stack Developer",
   location: "Bengaluru, India",
   email: "vanithapkrishnamurthy@gmail.com",
-  linkedin: "https://www.linkedin.com/in/vanitha-pk-719096115",
-  resume: "/Vanitha_PK_Resume.pdf",
-  portrait: "/portrait/vanitha.jpg",
-  headline: ["I build Java and React systems,", "from the database to the button."] as const,
+  linkedin: "https://www.linkedin.com/in/vanitha-pk-719096115/",
+  resume: "/Vanitha_2026_Resume.pdf",
+  portrait: "/portrait/vanitha-dslr.png",
+  avatar: "/portrait/vanitha-avatar.png",
+  headline: ["I turn complex problems", "into reliable software with Java and React."] as const,
   intro:
     "Seven years shipping Java, Spring Boot and React for HSBC, T. Rowe Price, Oracle and OpenText.",
+  aiTools: "I use Claude and GitHub Copilot alongside my everyday stack for AI-assisted development.",
   summary:
     "Full stack developer building scalable products with Java, Spring Boot, React and PostgreSQL. Skilled in REST APIs, frontend development, workflow automation and performance optimization.",
 };
@@ -168,7 +170,7 @@ export type Employer = {
   company: string;
   period: string;
   roles: { title: string; period: string }[];
-  projects: { name: string; context: string; outcome?: string }[];
+  projects: { name: string; context: string; outcome?: string; contributions: string[]; technologies: string[] }[];
 };
 
 export const career: Employer[] = [
@@ -180,12 +182,23 @@ export const career: Employer[] = [
     projects: [
       {
         name: "Experience Central",
+        contributions: [
+          "Develop React microfrontend features and resolve production issues for a user engagement platform with real-time behavioural alerts.",
+          "Turn Figma designs into reusable React components and build Java and Spring Boot REST APIs for frontend and analytics workflows.",
+          "Improve application stability during framework upgrades and dependency migrations.",
+          "Work with product, design and engineering teams on requirements, code reviews and releases.",
+          "Contributed to an AI-agent initiative to automate manual workflows by building the React chat UI and insights-driven home screen, integrating chat APIs, and implementing database schema changes and persistence. Supported MCP and agent integrations for creating and retrieving application fields and variables, working with the agent implementation to connect the UI, tools, backend services and database.",
+          "Collaborated across teams on API integrations, modernization and technical challenges; supported teammates with troubleshooting, implementation guidance, and adoption of AI development tools such as Aviator and AI-assisted code review. Used Claude and GitHub Copilot to support day-to-day coding, troubleshooting and code review.",
+        ],
+        technologies: ["React", "Microfrontends", "Java", "Spring Boot", "Figma"],
         context:
           "React microfrontend features and reusable components from Figma designs, with Java and Spring Boot REST APIs for the frontend and analytics workflows.",
         outcome: "Real-time behavioural alerts on a live engagement platform",
       },
       {
         name: "AI hackathon prototype",
+        contributions: ["Built a weather-alert prototype with Python and LLaMA during an internal AI hackathon."],
+        technologies: ["Python", "LLaMA"],
         context: "A weather-alert prototype built with Python and LLaMA during an internal AI hackathon.",
       },
     ],
@@ -198,6 +211,8 @@ export const career: Employer[] = [
     projects: [
       {
         name: "Oracle Permit and License Application (OPAL)",
+        contributions: ["Updated Java data models across 100+ tables, including View Objects and Entity Objects.", "Built VBCS applications and pages from Figma designs for public-sector permit and licensing workflows.", "Optimized Oracle JET code and wrote Mocha and Chai tests, alongside Selenium browser tests."],
+        technologies: ["Java", "Oracle VBCS", "Oracle JET", "Figma", "Mocha", "Chai", "Selenium"],
         context:
           "VBCS applications and pages built from Figma for public-sector workflows, with optimized Oracle JET code and Mocha, Chai and Selenium tests.",
         outcome: "Java data models updated across 100+ tables",
@@ -212,6 +227,8 @@ export const career: Employer[] = [
     projects: [
       {
         name: "T. Rowe Price workplace retirement",
+        contributions: ["Built retirement applications across React, Redux, Java, Spring Boot and PostgreSQL.", "Developed REST APIs with Spring Data JPA, DTOs and centralized exception handling.", "Reduced API response time by 40% through Redis caching and JPA query optimization.", "Improved React performance, wrote JUnit and Mockito tests, and implemented SLF4J logging.", "Deployed on AWS S3, Lambda and EC2, and automated delivery with GitLab CI/CD and Docker."],
+        technologies: ["React", "Redux", "Java", "Spring Boot", "PostgreSQL", "Redis", "AWS", "Docker", "GitLab CI/CD"],
         context:
           "Retirement applications across React, Redux, Java, Spring Boot and PostgreSQL, deployed on AWS with GitLab CI/CD and Docker.",
         outcome: "40% faster API responses through Redis caching and JPA tuning",
@@ -229,12 +246,16 @@ export const career: Employer[] = [
     projects: [
       {
         name: "HSBC customer onboarding",
+        contributions: ["Built an international customer onboarding application for HSBC back-office teams.", "Automated onboarding workflows with Camunda and Spring REST APIs.", "Managed customer records and audit history with PostgreSQL and Spring Data JPA.", "Built React pages for fraud reviews and account-opening approvals.", "Automated analytical reports and scheduled downloads with Java and Spring Boot.", "Deployed Camunda workflows to AWS EC2 for testing and monitored logs with AWS CLI.", "Used Git, Jenkins, SonarQube, Jira and Confluence for Agile delivery."],
+        technologies: ["Java", "Spring Boot", "React", "Camunda", "PostgreSQL", "AWS EC2", "Jenkins", "SonarQube"],
         context:
           "An international onboarding application with Camunda workflow automation, PostgreSQL audit history and React screens for fraud review and approvals.",
         outcome: "Onboarding, fraud review and approvals in one flow",
       },
       {
         name: "Test-case generation framework",
+        contributions: ["Built a test-case generation framework with Node.js, Express.js, Mocha, Chai and MongoDB.", "Created an Angular 7 interface for viewing test results; the Infosys Training Team later adopted the framework for test evaluation."],
+        technologies: ["Node.js", "Express.js", "MongoDB", "Angular 7", "Mocha", "Chai"],
         context:
           "A framework built with Node.js, Express, Mocha, Chai and MongoDB, with an Angular results interface.",
         outcome: "Adopted by the Infosys training team for test evaluation",

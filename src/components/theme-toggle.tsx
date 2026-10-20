@@ -3,16 +3,13 @@
 import { useRef } from "react";
 import { Moon, Sun } from "@phosphor-icons/react";
 
-// The inline script in layout.tsx sets data-theme before paint, so the
+// The root layout defaults to dark before paint, so the
 // icon swap is pure CSS and never mismatches during hydration.
 export function ThemeToggle() {
   const btn = useRef<HTMLButtonElement>(null);
 
   function apply(next: "light" | "dark") {
     document.documentElement.setAttribute("data-theme", next);
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
   }
 
   function toggle() {

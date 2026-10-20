@@ -7,6 +7,7 @@ import { profile } from "@/content/profile";
 import { Magnetic } from "./magnetic";
 import { Reveal } from "./reveal";
 import { RevealHeading } from "./reveal-heading";
+import { AmbientWave } from "./ambient-wave";
 
 type CopyState = "idle" | "copied" | "failed";
 
@@ -30,7 +31,8 @@ export function Contact() {
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-6xl px-5 pb-20 md:px-8 md:pb-28">
-      <Reveal className="relative overflow-hidden rounded-4xl border border-line bg-surface px-7 py-14 shadow-soft md:px-16 md:py-20">
+      <Reveal className="relative isolate overflow-hidden rounded-4xl border border-line bg-surface px-7 py-14 shadow-soft md:px-16 md:py-20">
+        <AmbientWave />
         <div
           aria-hidden
           className="bg-dots absolute inset-0 mask-[radial-gradient(ellipse_at_top_right,black,transparent_60%)]"

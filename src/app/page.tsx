@@ -1,4 +1,3 @@
-import { Contact } from "@/components/contact";
 import { Career } from "@/components/career";
 import { Hero } from "@/components/hero";
 import { IntroOverlay } from "@/components/intro-overlay";
@@ -29,7 +28,6 @@ export default function Home() {
         <Stack />
         <Career />
         <Writing />
-        <Contact />
       </main>
       <SiteFooter />
       <FloatingDock />

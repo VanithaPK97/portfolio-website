@@ -36,10 +36,10 @@ export function Portrait() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.97 }}
+      initial={reduce ? false : { opacity: 0, y: 30, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 1, delay: 0.25, ease: easeOut }}
-      className="relative mx-auto w-full max-w-[340px] md:ml-auto md:mr-0"
+      className="relative mx-auto w-full max-w-[360px] lg:ml-auto lg:mr-0"
       style={{ perspective: 900 }}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
@@ -54,10 +54,10 @@ export function Portrait() {
       />
 
       <motion.figure
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={{ rotateX: reduce ? 0 : rotateX, rotateY: reduce ? 0 : rotateY, transformStyle: "preserve-3d" }}
         className="rounded-3xl border border-line bg-surface p-2.5 shadow-lift"
       >
-        <div className="relative aspect-[288/332] overflow-hidden rounded-2xl bg-white">
+        <div className="relative aspect-[288/350] overflow-hidden rounded-2xl bg-white">
           <Image
             src={profile.portrait}
             alt={`Portrait of ${profile.name}`}

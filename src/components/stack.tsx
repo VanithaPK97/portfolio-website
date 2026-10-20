@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, type Variants } from "motion/react";
 import { stack, type StackItem } from "@/content/profile";
 import { LogoPill } from "./logo-pill";
@@ -80,26 +79,41 @@ export function Stack() {
       aria-labelledby="stack-title"
       className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28"
     >
-      <Reveal className="max-w-2xl">
+      <div className="max-w-2xl">
         <RevealHeading id="stack-title" className="text-balance text-4xl font-bold tracking-[-0.03em] md:text-5xl">
-          The stack
+          My technical stack
         </RevealHeading>
         <p className="mt-4 text-lg leading-relaxed text-muted">
           Java on the server, React in the browser, and the tooling that gets both to production.
         </p>
-      </Reveal>
+      </div>
 
       <div className="mt-14 grid gap-8 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
-          <div className="relative aspect-square overflow-hidden rounded-3xl border border-line bg-surface-2 lg:sticky lg:top-28">
-            <Image
-              src="/covers/stack.jpg"
-              alt="A continuous integration pipeline on a developer's screen"
-              fill
-              sizes="(min-width: 1024px) 40vw, 90vw"
-              className="object-cover"
-            />
-          </div>
+          <figure className="rounded-3xl border border-line bg-surface p-6 shadow-soft lg:sticky lg:top-28">
+            <figcaption className="mb-6">
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-accent">From interface to production</p>
+              <h3 className="mt-3 text-2xl font-bold tracking-tight">How the pieces connect</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">The technologies I use across a full stack application.</p>
+            </figcaption>
+            <ol>
+              {[
+                { label: "User interface", detail: "React · Redux · TypeScript", note: "Components and microfrontends" },
+                { label: "Application services", detail: "Java · Spring Boot", note: "REST APIs and business logic" },
+                { label: "Data and caching", detail: "PostgreSQL · MongoDB · Redis", note: "Persistent records and faster reads" },
+                { label: "Cloud and delivery", detail: "AWS · Docker · GitLab CI/CD", note: "Deployments and automated pipelines" },
+              ].map((layer, i) => (
+                <li key={layer.label}>
+                  {i > 0 && <div aria-hidden className="py-2 text-center text-accent">↓</div>}
+                  <div className="rounded-xl border border-line bg-bg p-4">
+                    <p className="flex items-center gap-3 text-sm font-semibold"><span className="font-mono text-[10px] text-accent">0{i + 1}</span>{layer.label}</p>
+                    <p className="mt-2 text-[13px] font-medium text-ink-2">{layer.detail}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-muted">{layer.note}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </figure>
         </div>
 
         <div className="flex flex-col gap-5 lg:col-span-7">

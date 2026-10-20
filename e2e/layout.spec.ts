@@ -14,7 +14,7 @@ test("hero tells the story with pills", async ({ page }) => {
   }
   await expect(hero.getByRole("link", { name: "LinkedIn" })).toHaveAttribute(
     "href",
-    "https://www.linkedin.com/in/vanitha-pk-719096115",
+    "https://www.linkedin.com/in/vanitha-pk-719096115/",
   );
 });
 

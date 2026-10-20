@@ -15,16 +15,16 @@ describe("introState", () => {
     expect(introState(1260)).toEqual({ phase: "typing-2", first: 20, second: 4 });
   });
   it("holds the full headline", () => {
-    const s = introState(3700);
+    const s = introState(3800);
     expect(s.phase).toBe("hold");
-    expect(s.second).toBe(63);
+    expect(s.second).toBe(66);
   });
   it("docks then finishes", () => {
-    expect(introState(4200).phase).toBe("dock");
+    expect(introState(4300).phase).toBe("dock");
     expect(introState(5000).phase).toBe("done");
   });
-  it("totals 4820ms", () => {
-    expect(INTRO_TOTAL_MS).toBe(4820);
+  it("totals 4940ms", () => {
+    expect(INTRO_TOTAL_MS).toBe(4940);
   });
 });
 

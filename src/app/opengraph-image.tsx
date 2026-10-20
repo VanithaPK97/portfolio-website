@@ -27,7 +27,7 @@ export default function OpenGraphImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 68, fontWeight: 700, letterSpacing: -2, lineHeight: 1.05 }}>
           <span>{profile.headline[0]}</span>
-          <span style={{ color: "#7b96ff" }}>{profile.headline[1]}</span>
+          <span style={{ color: "#6ee7b7" }}>{profile.headline[1]}</span>
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#c3c9d3" }}>
           Java / Spring Boot / React / PostgreSQL / AWS

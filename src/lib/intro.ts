@@ -3,7 +3,7 @@
 
 export const INTRO = {
   first: "Hi, I’m Vanitha P K.",
-  second: ["I build Java and React systems,", "from the database to the button."],
+  second: ["I turn complex problems", "into reliable software with Java and React."],
   firstMs: 40,
   pauseMs: 300,
   secondMs: 40,

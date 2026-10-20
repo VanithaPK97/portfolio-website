@@ -2,9 +2,8 @@
 
 import { motion } from "motion/react";
 
-// A section heading that reveals word by word on scroll. The full text stays
-// as the accessible name; the animated word spans are hidden from assistive
-// tech so it still reads as one heading.
+// Headings remain readable before hydration and when scroll observers miss
+// an entry. Animate a small emphasis without moving text outside a clipping box.
 export function RevealHeading({
   as = "h2",
   id,
@@ -21,11 +20,11 @@ export function RevealHeading({
   return (
     <Tag id={id} className={className} aria-label={children}>
       {words.map((word, i) => (
-        <span key={i} aria-hidden className="inline-block overflow-hidden pb-[0.1em] align-bottom">
+        <span key={i} aria-hidden className="inline-block pb-[0.1em] align-bottom">
           <motion.span
             className="inline-block"
-            initial={{ y: "110%" }}
-            whileInView={{ y: "0%" }}
+            initial={false}
+            whileInView={{ opacity: [0.85, 1] }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.8, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
           >

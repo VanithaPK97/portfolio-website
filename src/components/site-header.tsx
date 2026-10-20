@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import {
   AnimatePresence,
   motion,
@@ -53,19 +52,10 @@ export function SiteHeader() {
           className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5 md:h-18 md:px-8"
         >
           <a href="#top" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
-            <span className="relative size-9 overflow-hidden rounded-full ring-1 ring-line">
-              <Image
-                src={profile.portrait}
-                alt=""
-                fill
-                sizes="36px"
-                className="object-cover object-[50%_20%]"
-              />
-            </span>
             <span className="text-[15px] font-bold tracking-tight">{profile.name}</span>
           </a>
 
-          <ul className="hidden items-center gap-1 md:flex">
+          <ul className="hidden items-center gap-1 lg:flex">
             {nav.map((item) => {
               const isActive = active === item.href.slice(1);
               return (
@@ -107,7 +97,7 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={() => setOpen((v) => !v)}
-              className="grid size-10 cursor-pointer place-items-center rounded-full text-ink transition-colors hover:bg-surface-2 md:hidden"
+              className="grid size-10 cursor-pointer place-items-center rounded-full text-ink transition-colors hover:bg-surface-2 lg:hidden"
             >
               {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
             </button>
@@ -122,7 +112,7 @@ export function SiteHeader() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.35, ease: easeOut }}
-              className="overflow-hidden md:hidden"
+              className="overflow-hidden lg:hidden"
             >
               <ul className="flex flex-col gap-1 px-5 pb-6 pt-2">
                 {nav.map((item) => (

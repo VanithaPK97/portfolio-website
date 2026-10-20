@@ -34,11 +34,11 @@ export function Career() {
             <Reveal
               as="article"
               key={emp.company}
-              className="grid gap-6 md:grid-cols-[16rem_1fr] md:gap-10"
+              className="grid gap-6 border-t border-line pt-10 lg:grid-cols-[16rem_1fr] md:gap-10"
             >
-              <div className="md:sticky md:top-28 md:self-start">
+              <div className="lg:sticky lg:top-28 lg:self-start">
                 <LogoPill brand={emp.brand} />
-                <p className="mt-3 text-lg font-bold tracking-tight">{emp.company}</p>
+                <h3 className="mt-3 text-2xl font-bold tracking-tight">{emp.company}</h3>
                 <p className="font-mono text-[12px] text-muted">{emp.period}</p>
                 <ul className="mt-4 flex flex-col gap-3 border-l border-line pl-5">
                   {emp.roles.map((role) => (
@@ -57,10 +57,23 @@ export function Career() {
               <div className="flex flex-col">
                 {emp.projects.map((project, i) => (
                   <div key={project.name} className={`py-5 ${i > 0 ? "border-t border-line" : ""}`}>
-                    <h3 className="font-semibold tracking-tight">{project.name}</h3>
-                    <p className="mt-1.5 max-w-[60ch] leading-relaxed text-ink-2">{project.context}</p>
+                    <h4 className="text-xl font-semibold tracking-tight">{project.name}</h4>
+                    <p className="mt-3 max-w-[60ch] leading-relaxed text-ink-2">{project.context}</p>
+                    <ul className="mt-5 flex max-w-[65ch] flex-col gap-3">
+                      {project.contributions.map((contribution) => (
+                        <li key={contribution} className="flex gap-3 text-[15px] leading-relaxed text-muted">
+                          <span aria-hidden className="mt-2.5 size-1 shrink-0 rounded-full bg-accent" />
+                          <span>{contribution}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <ul aria-label={`${project.name} technologies`} className="mt-5 flex flex-wrap gap-2">
+                      {project.technologies.map((technology) => (
+                        <li key={technology} className="rounded-md border border-line bg-bg px-2.5 py-1 font-mono text-[10px] text-muted">{technology}</li>
+                      ))}
+                    </ul>
                     {project.outcome && (
-                      <p className="mt-2 flex items-baseline gap-2 font-semibold text-ink">
+                      <p className="mt-5 flex items-baseline gap-2 rounded-lg bg-accent-soft px-4 py-3 text-sm font-semibold text-ink">
                         <span aria-hidden className="h-px w-4 translate-y-[-0.3em] bg-accent" />
                         {project.outcome}
                       </p>
